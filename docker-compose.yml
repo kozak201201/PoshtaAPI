@@ -1,0 +1,26 @@
+services:
+
+  poshta.api:
+    image: ${DOCKER_REGISTRY-}poshtaapi
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Poshta.API/Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    depends_on:
+      - sqlserver
+  
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - SA_PASSWORD=${SA_PASSWORD}
+      - ACCEPT_EULA=Y
+    volumes: 
+      - database:/data/db
+    ports:
+      - "1433:1433"
+
+volumes:
+  database:
