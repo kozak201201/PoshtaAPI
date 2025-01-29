@@ -1,7 +1,7 @@
 services:
 
   poshta.api:
-    image: ${DOCKER_REGISTRY-}poshtaapi
+    image: poshtaapi:latest
     env_file: .env
     build:
       context: .
